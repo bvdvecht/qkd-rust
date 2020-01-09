@@ -22,7 +22,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 [[package]]
 name = "cqc"
 version = "0.4.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "bincode 1.2.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "bitflags 1.2.1 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -34,7 +33,7 @@ dependencies = [
 name = "openssl-qkd-rust"
 version = "0.1.0"
 dependencies = [
- "cqc 0.4.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "cqc 0.4.0",
  "qkd-rs 0.1.0",
 ]
 
@@ -51,7 +50,7 @@ name = "qkd-rs"
 version = "0.1.0"
 dependencies = [
  "bincode 1.2.1 (registry+https://github.com/rust-lang/crates.io-index)",
- "cqc 0.4.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "cqc 0.4.0",
 ]
 
 [[package]]
@@ -96,7 +95,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 "checksum bincode 1.2.1 (registry+https://github.com/rust-lang/crates.io-index)" = "5753e2a71534719bf3f4e57006c3a4f0d2c672a4b676eec84161f763eca87dbf"
 "checksum bitflags 1.2.1 (registry+https://github.com/rust-lang/crates.io-index)" = "cf1de2fe8c75bc145a2f577add951f8134889b4795d47466a54a5c846d691693"
 "checksum byteorder 1.3.2 (registry+https://github.com/rust-lang/crates.io-index)" = "a7c3dd8985a7111efc5c80b44e23ecdd8c007de8ade3b96595387e812b957cf5"
-"checksum cqc 0.4.0 (registry+https://github.com/rust-lang/crates.io-index)" = "0e5b7a9da5ce0ff3d819730ee90c088f344270ab4f9fdb03dd18350727466ce9"
 "checksum proc-macro2 1.0.7 (registry+https://github.com/rust-lang/crates.io-index)" = "0319972dcae462681daf4da1adeeaa066e3ebd29c69be96c6abb1259d2ee2bcc"
 "checksum quote 1.0.2 (registry+https://github.com/rust-lang/crates.io-index)" = "053a8c8bcc71fcce321828dc897a98ab9760bef03a4fc36693c231e5b3216cfe"
 "checksum serde 1.0.104 (registry+https://github.com/rust-lang/crates.io-index)" = "414115f25f818d7dfccec8ee535d76949ae78584fc4f79a6f45a904bf8ab4449"
