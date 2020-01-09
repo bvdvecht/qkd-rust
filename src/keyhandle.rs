@@ -32,6 +32,7 @@ impl KeyHandle {
 
 
     pub fn set_value(&self) {
+        // for now, set fixed value
         for i in 0..KEY_HANDLE_LENGTH {
             unsafe {
                 std::ptr::write(self.0.offset(i), 3);
