@@ -50,12 +50,16 @@ fn server_thread(tx: Sender<Key>) {
 
     let cqc = Cqc::new(10, "localhost", 8004);
 
-    // generate key by measuring received EPR halves
-    for i in 0..key_length {
+    // Generate key by measuring received EPR halves.
+    // Each measurement produces 1 bit.
+    for i in 0..(8 * key_length) {
         let id = cqc.recv_epr(false);
         let outcome = cqc.measure_qubit(id, false);
         print!("{:x?}", outcome as u8);
-        key.value[i] = outcome as u8;
+
+        let bit = outcome as u8;
+        let byte: usize = i / 8;
+        key.value[byte] |= bit << (i % 8);
     }
     println!("");
     println!("generated key: {:x?}", key.to_string());
@@ -71,12 +75,16 @@ fn client_thread(tx: Sender<Key>) {
 
     let cqc = Cqc::new(10, "localhost", 8001);
 
-    // generate key by measuring EPR halves
-    for i in 0..key_length {
+    // Generate key by measuring EPR halves.
+    // Each measurement produces 1 bit.
+    for i in 0..(8 * key_length) {
         let id = cqc.create_epr(server_hdr(), false);
         let outcome = cqc.measure_qubit(id, false);
         print!("{:x?}", outcome as u8);
-        key.value[i] = outcome as u8;
+
+        let bit = outcome as u8;
+        let byte: usize = i / 8;
+        key.value[byte] |= bit << (i % 8);
     }
     println!("");
     println!("generated key: {:x?}", key.to_string());
