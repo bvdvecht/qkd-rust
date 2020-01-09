@@ -7,71 +7,28 @@ use mpsc::Sender;
 use mpsc::Receiver;
 
 mod session;
+
 mod quantum;
 use quantum::Key;
+
+mod keyhandle;
+use keyhandle::KeyHandle;
 
 
 
 #[repr(C)]
-pub struct qos_t {
+pub struct QoS {
     requested_length: u32,
     max_bps: u32,
     priority: u32,
     timeout: u32
 }
 
-// const IP_ADDR_MAX_LEN: usize = 16;
-
-// #[repr(C)]
-// pub struct ip_address_t {
-//     length: u8,
-//     address: [u8; IP_ADDR_MAX_LEN]
-// }
-
-// impl ip_address_t {
-//     fn get_address(&self) -> String {
-//         let mut s = String::from_utf8_lossy(&self.address).to_string();
-//         s.pop();
-//         s
-//     }
-// }
-
-
-
-fn key_handle_is_null(handle: *mut u8) -> bool {
-    for i in 0..64 {
-        unsafe {
-            if *handle.offset(i) != 0 {
-                return false;
-            }
-        }
-    }
-    true
-}
-
-fn print_key_handle(handle: *mut u8) {
-    for i in 0..64 {
-        unsafe {
-            let u = *handle.offset(i);
-            print!("{:x?}", u);
-        }
-    }
-    println!("");
-}
-
-fn write_key_handle(handle: *mut u8) {
-    for i in 0..64 {
-        unsafe {
-            std::ptr::write(handle.offset(i), 3);
-        }
-    }
-}
-
 
 #[no_mangle]
 #[allow(non_snake_case)]
 #[allow(unused_variables)]
-pub extern fn QKD_open(destination: *mut c_char, qos: qos_t, key_handle_ptr: *mut u8) -> u32 {
+pub extern fn QKD_open(destination: *mut c_char, qos: QoS, key_handle_ptr: *mut u8) -> u32 {
     println!("QKD_OPEN");
 
     // ignore destination for now
@@ -81,15 +38,18 @@ pub extern fn QKD_open(destination: *mut c_char, qos: qos_t, key_handle_ptr: *mu
     println!("qos priority: {}", qos.priority);
     println!("qos timeout: {}", qos.timeout);
 
+    
     session::set_key_length(qos.requested_length as usize);
+
+    let key_handle = KeyHandle::from(key_handle_ptr);
     println!("key_handle: {:x?}", key_handle_ptr);
     
     
-    print_key_handle(key_handle_ptr);
-    if key_handle_is_null(key_handle_ptr) {
+    key_handle.print();
+    if key_handle.is_null() {
         session::set_is_server(true);
 
-        write_key_handle(key_handle_ptr);
+        key_handle.set_value();
     }
 
     let (tx, rx): (Sender<Key>, Receiver<Key>) = mpsc::channel();
