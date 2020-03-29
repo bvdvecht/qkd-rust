@@ -1,5 +1,5 @@
 [package]
-name = "openssl-qkd-rust"
+name = "qkd-rust"
 version = "0.1.0"
 authors = ["bart"]
 edition = "2018"
@@ -8,7 +8,7 @@ edition = "2018"
 
 [dependencies]
 "qkd-rs" = { path = "../cqc-rust-wrappers"}
-cqc = { path = "../cqc" }
+cqc = "0.4"
 
 [lib]
 name = "qkdapi"
