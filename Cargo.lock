@@ -31,11 +31,11 @@ dependencies = [
 ]
 
 [[package]]
-name = "openssl-qkd-rust"
+name = "cqcwrappers"
 version = "0.1.0"
 dependencies = [
+ "bincode 1.2.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "cqc 0.4.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "qkd-rs 0.1.0",
 ]
 
 [[package]]
@@ -47,11 +47,11 @@ dependencies = [
 ]
 
 [[package]]
-name = "qkd-rs"
+name = "qkd-rust"
 version = "0.1.0"
 dependencies = [
- "bincode 1.2.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "cqc 0.4.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "cqcwrappers 0.1.0",
 ]
 
 [[package]]
