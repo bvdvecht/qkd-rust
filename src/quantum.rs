@@ -3,7 +3,7 @@ use std::sync::mpsc;
 use mpsc::Sender;
 
 use std::net::Ipv4Addr;
-use cqc::hdr::CommHdr;
+use cqc::builder::RemoteId;
 use cqcwrappers::Cqc;
 
 use crate::session;
@@ -37,8 +37,8 @@ impl Key {
 }
 
 // CQC header of server, used by client
-fn server_hdr() -> CommHdr {
-    CommHdr {
+fn server_hdr() -> RemoteId {
+    RemoteId {
         remote_app_id: 10,
         remote_port: 8004,
         remote_node: u32::from(Ipv4Addr::new(127, 0, 0, 1))
